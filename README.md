@@ -6,6 +6,22 @@ Local resource support for Angular using HTML5 storage
 
 Combines the best of [ngResource](https://docs.angularjs.org/api/ngResource/service/$resource), [ngStorage](https://github.com/gsklee/ngStorage) and [angular-local-storage](https://github.com/grevory/angular-local-storage) to give you access to local and session storage within Angular, but also provides a storage strategy that supports sharing sessionStorage data between multiple tabs via [transient](http://stackoverflow.com/questions/20325763/browser-sessionstorage-share-between-tabs) [localStorage](http://blog.guya.net/2015/06/12/sharing-sessionstorage-between-tabs-for-secure-multi-tab-authentication/) use.
 
+
+Installation
+============
+
+Using NPM:
+
+```
+npm install --save angular-stored-object
+```
+
+Using Bower:
+
+```
+bower install --save angular-stored-object
+```
+
 Example
 =======
 
