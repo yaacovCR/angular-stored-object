@@ -1,3 +1,13 @@
+# =========================
+
+# Installable Packages
+node_modules
+
+# Temporary files
+coverage
+
+# =========================
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

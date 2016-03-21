@@ -1,0 +1,37 @@
+{
+  "name": "angular-stored-object",
+  "version": "1.0.0",
+  "description": "Local resource support for Angular using HTML5 storage",
+  "main": "stored-object.js",
+  "scripts": {
+    "test": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/yaacovCR/angular-stored-object"
+  },
+  "keywords": [
+    "angular",
+    "local",
+    "resource",
+    "storage",
+    "localStorage",
+    "sessionStorage"
+  ],
+  "author": "Yaacov Rydzinski",
+  "license": "MIT",
+  "devDependencies": {
+    "angular-mocks": "^1.5.1",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-coverage": "^0.5.5",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.8",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "phantomjs-prebuilt": "^2.1.5"
+  },
+  "dependencies": {
+    "angular": "^1.5.1"
+  }
+}
