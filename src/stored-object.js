@@ -1,4 +1,16 @@
 (function(window, angular, undefined) {'use strict';
+
+/**
+ * @ngdoc overview
+ * @name yaacovCR.storedObject
+ * @description
+ *
+ * # yaacovCR.storedObject
+ *
+ * The `yaacovCR.storedObject` module provides interaction support with HTML5
+ * storage objects via the ycr$StoredObject service.
+ *
+ */
   
   angular
     .module('yaacovCR.storedObject', [])

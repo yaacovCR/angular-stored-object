@@ -4,7 +4,8 @@
   "description": "Local resource support for Angular using HTML5 storage",
   "main": "stored-object.js",
   "scripts": {
-    "test": "karma start"
+    "test": "karma start",
+    "build": "dgeni ./dgeni-conf.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,8 @@
   "license": "MIT",
   "devDependencies": {
     "angular-mocks": "^1.5.1",
+    "gulp": "^3.9.1",
+    "gulp-ngdocs": "^0.2.13",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.2",
