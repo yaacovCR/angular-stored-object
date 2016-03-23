@@ -7,6 +7,9 @@ bower_components
 # Temporary files
 coverage
 
+# gulp-ngdocs has node_modules subdirectory when
+!docs/js/node_modules
+
 # =========================
 
 # Windows image file caches
