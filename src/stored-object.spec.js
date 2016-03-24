@@ -273,19 +273,20 @@
             testObject = resetTestObject(null, preventDefault);
             testObject.testProperty = 'testValue';
             testObject.$create('localStorage');
-            var callCount = $rootScope.$broadcast.calls.count();
             setTimeout(function() {
+              var broadcastCount = $rootScope.$broadcast.calls.count();
+              var applyCount = $rootScope.$apply.calls.count();
               $window.triggerStorageEvent(
                 'storedObject:testObject:updated',
                 null,
                 generateJson('localStorage', 'testValue2'));
               expect(testObject.testProperty).toBe('testValue2');
-              expect($rootScope.$broadcast.calls.count()).toBe(callCount + 1);
+              expect($rootScope.$broadcast.calls.count()).toBe(broadcastCount + 1);
               expect($rootScope.$broadcast.calls.mostRecent().args).toEqual(
                 jasmine.arrayContaining(['storedObject:testObject:externalChange']));          
-              expect($rootScope.$apply.calls.count()).toBe((preventDefault) ? 0 : 1);
+              expect($rootScope.$apply.calls.count()).toBe((preventDefault) ? applyCount : applyCount + 1);
               done();
-            }, 100);
+            }, 1);
           });
         });
         
@@ -294,8 +295,9 @@
             testObject = resetTestObject(null, preventDefault);
             testObject.testProperty = 'testValue';
             testObject.$create('sessionStorageWithMultiTabSupport');
-            var callCount = $rootScope.$broadcast.calls.count();
             setTimeout(function() {
+              var broadcastCount = $rootScope.$broadcast.calls.count();
+              var applyCount = $rootScope.$apply.calls.count();
               $window.triggerStorageEvent(
                 'storedObject:testObject:updated',
                 null,
@@ -305,12 +307,12 @@
                 $storageStrategy: 'sessionStorageWithMultiTabSupport',
                 testProperty: 'testValue2'
               }));
-              expect($rootScope.$broadcast.calls.count()).toBe(callCount + 1);
+              expect($rootScope.$broadcast.calls.count()).toBe(broadcastCount + 1);
               expect($rootScope.$broadcast.calls.mostRecent().args).toEqual(
                 jasmine.arrayContaining(['storedObject:testObject:externalChange']));          
-              expect($rootScope.$apply.calls.count()).toBe((preventDefault) ? 0 : 1);
+              expect($rootScope.$apply.calls.count()).toBe((preventDefault) ? applyCount : applyCount + 1);
               done();
-            }, 100);
+            }, 1);
           });
         });
       });
@@ -321,13 +323,14 @@
             testObject = resetTestObject(null, preventDefault);
             testObject.testProperty = 'testValue';
             testObject.$create('localStorage');
-            var callCount = $rootScope.$broadcast.calls.count();
+            var broadcastCount = $rootScope.$broadcast.calls.count();
+            var applyCount = $rootScope.$apply.calls.count();
             $window.triggerStorageEvent('storedObject:testObject:removed', null, Date.now());
             expect(testObject.testProperty).toBeUndefined();
-            expect($rootScope.$broadcast.calls.count()).toBe(callCount + 1);
+            expect($rootScope.$broadcast.calls.count()).toBe(broadcastCount + 1);
             expect($rootScope.$broadcast.calls.mostRecent().args).toEqual(
               jasmine.arrayContaining(['storedObject:testObject:externalChange']));          
-            expect($rootScope.$apply.calls.count()).toBe((preventDefault) ? 0 : 1);
+            expect($rootScope.$apply.calls.count()).toBe((preventDefault) ? applyCount : applyCount + 1);
           });
         });
         
@@ -336,14 +339,15 @@
             testObject = resetTestObject(null, preventDefault);
             testObject.testProperty = 'testValue';
             testObject.$create('sessionStorageWithMultiTabSupport');
-            var callCount = $rootScope.$broadcast.calls.count();
+            var broadcastCount = $rootScope.$broadcast.calls.count();
+            var applyCount = $rootScope.$apply.calls.count();
             $window.triggerStorageEvent('storedObject:testObject:removed', null, Date.now());
             expect(testObject.testProperty).toBeUndefined();
             expect($window.sessionStorage.data['storedObject:testObject']).toBeUndefined();
-            expect($rootScope.$broadcast.calls.count()).toBe(callCount + 1);
+            expect($rootScope.$broadcast.calls.count()).toBe(broadcastCount + 1);
             expect($rootScope.$broadcast.calls.mostRecent().args).toEqual(
               jasmine.arrayContaining(['storedObject:testObject:externalChange']));          
-            expect($rootScope.$apply.calls.count()).toBe((preventDefault) ? 0 : 1);
+            expect($rootScope.$apply.calls.count()).toBe((preventDefault) ? applyCount : applyCount + 1);
           });
         });
       });
