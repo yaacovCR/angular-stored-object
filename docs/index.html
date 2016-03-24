@@ -32,6 +32,8 @@
       addTag('link', {rel: 'stylesheet', href: 'css/animations.css', type: 'text/css'});
 
       
+         addTag('link', {rel: 'stylesheet', href: 'css/ngdoc_assets/styles.css', type: 'text/css'}, sync);
+      
 
       
         addTag('script', {src: 'js/angular.min.js'}, sync);
@@ -87,14 +89,16 @@
         <div class="container">
           
           
-            <a  class="brand">angular-stored-object</a>
+            <a  href="/api/yaacovCR.storedObject"  class="brand">angular-stored-object</a>
           
           <ul class="nav">
             <li ng-repeat="(url, name) in sections" ng-class="{active: isActivePath(url)}">
               <a ng-href="{{url}}"><i class="icon-book icon-white"></i> {{name}}</a>
             </li>
           </ul>
-          
+          <ul class="nav pull-right">
+	<li><a href="https://github.com/yaacovCR/angular-stored-object"><i class="icon-github icon-white"></i> GitHub</a></li>
+</ul>
         </div>
       </div>
     </div>

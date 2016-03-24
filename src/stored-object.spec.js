@@ -285,7 +285,7 @@
                 jasmine.arrayContaining(['storedObject:testObject:externalChange']));          
               expect($rootScope.$apply.calls.count()).toBe((preventDefault) ? 0 : 1);
               done();
-            }, 1);
+            }, 100);
           });
         });
         
@@ -310,7 +310,7 @@
                 jasmine.arrayContaining(['storedObject:testObject:externalChange']));          
               expect($rootScope.$apply.calls.count()).toBe((preventDefault) ? 0 : 1);
               done();
-            }, 1);
+            }, 100);
           });
         });
       });

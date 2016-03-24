@@ -5,6 +5,9 @@ var gulpDocs = require('gulp-ngdocs');
 var options = {
   startPage: '/api/yaacovCR.storedObject',
   title: "angular-stored-object",
+  titleLink: "/api/yaacovCR.storedObject",
+  styles: [ 'ngdoc_assets/styles.css' ],
+  navTemplate: 'ngdoc_assets/navTemplate.html',
   scripts: [
     'node_modules/angular/angular.min.js',
     'node_modules/angular/angular.min.js.map',

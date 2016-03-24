@@ -5,7 +5,8 @@
   "main": "stored-object.js",
   "scripts": {
     "test": "karma start",
-    "build": "dgeni ./dgeni-conf.js"
+    "build": "gulp",
+    "display": "node node_modules/http-server/bin/http-server docs -p 9200 -c-1"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "angular-mocks": "^1.5.1",
     "gulp": "^3.9.1",
     "gulp-ngdocs": "^0.2.13",
+    "http-server": "^0.9.0",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.2",

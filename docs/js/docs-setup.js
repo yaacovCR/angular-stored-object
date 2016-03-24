@@ -27,13 +27,16 @@ NG_DOCS={
       "js/node_modules/angular-animate/angular-animate.min.js",
       "js/node_modules/marked/lib/marked.js"
     ],
-    "styles": [],
+    "styles": [
+      "css/ngdoc_assets/styles.css"
+    ],
     "title": "angular-stored-object",
     "html5Mode": true,
     "editExample": true,
-    "navTemplate": false,
-    "navContent": "",
+    "navTemplate": "ngdoc_assets/navTemplate.html",
+    "navContent": "<ul class=\"nav pull-right\">\r\n\t<li><a href=\"https://github.com/yaacovCR/angular-stored-object\"><i class=\"icon-github icon-white\"></i> GitHub</a></li>\r\n</ul>",
     "navTemplateData": {},
+    "titleLink": "/api/yaacovCR.storedObject",
     "loadDefaults": {
       "angular": true,
       "angularAnimate": true,
