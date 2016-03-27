@@ -127,7 +127,7 @@
        * from other participating tabs' sessionStorage.
        *    
        * @returns {Object} The object instance itself (`this`) to allow for chaining.
-       * .
+       * 
        * @example
        * <pre>
        *   var session = new ycr$StoredObject('session');
