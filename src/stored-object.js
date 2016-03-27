@@ -151,7 +151,7 @@
        * set by the previous call to $create.
        * 
        * @returns {Object} The object instance itself (`this`) to allow for chaining.
-       * .
+       * 
        * @example
        * <pre>
        *   var session = new ycr$StoredObject('session');
@@ -177,7 +177,7 @@
        * The $delete method resets the object and clears it from storage.
        * 
        * @returns {Object} The object instance itself (`this`) to allow for chaining.
-       * .
+       * 
        * @example
        * <pre>
        *   var session = new ycr$StoredObject('session');
