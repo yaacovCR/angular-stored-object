@@ -9,22 +9,71 @@
  *
  * The `yaacovCR.storedObject` module provides interaction support with HTML5
  * storage objects via the ycr$StoredObject service.
+ * 
+ * See {@link yaacovCR.storedObject.ycr$StoredObject `ycr$StoredObject`} for usage.
  *
  */
   
   angular
     .module('yaacovCR.storedObject', [])
     .factory('ycr$StoredObject', StoredObjectService);
+
+  /**
+   * @ngdoc function
+   * @name yaacovCR.storedObject.ycr$StoredObject
+   * @description
+   *
+   * # yaacovCR.storedObject.ycr$StoredObject
+   *
+   * The `ycr$StoredObject` service consists of a "class" object, (i.e. a constuctor
+   * function) which, when instantiated (i.e. when called via new), returns a new
+   * object instance that corresponds to the key provided during instantiation.
+   *  
+   * Requires the {@link yaacovCR.storedObject `yaacovCR.storedObject`} module to be
+   * installed.
+   *
+   * @constructor
+   * @param {string} key A unique key under which the object instance will be stored.
+   * @returns {Object} An object instance of type
+   *   {@link yaacovCR.storedObject.type:StoredObject `StoredObject`} with built-in
+   *   methods that can be used to interact with HTML5 storage.
+   * 
+   *   Properties of the object can be set just as with any other Javascript object.
+   *   If an object with the same key has been saved to storage by this or any other
+   *   tab, the returned object will be loaded from storage and will contain the
+   *   properties that were initially set; otherwise, the object will have no
+   *   properties besides the built-in methods.
+   * 
+   * @example
+   * <pre>
+   *   var session = new ycr$StoredObject('session');
+   *   session.token = 'ABCDEFG';
+   *   session.$create('localStorage');
+   * </pre>
+   */
     
   function StoredObjectService($window, $rootScope, $log) {
+
+    /**
+     * @ngdoc object
+     * @name yaacovCR.storedObject.type:StoredObject
+     * @description
+     *
+     * The `StoredObject` class object provides built-in methods that can be used by
+     * an object instance to interact with HTML5 storage.
+     * 
+     * Properties of the object can be set just as with any other Javascript object.
+     * If an object with the same key has been saved to storage by this or any other
+     * tab, any new object will be loaded from storage and will contain the
+     * properties that were initially set; otherwise, the object will have no
+     * properties besides the built-in methods.
+     * 
+     */
     
     function StoredObject(_key) {
       
       this.$create = $create;
-      this.$debug = $debug;
-      this.$save = function() { this.$update(); };
       this.$update = $update;
-      this.$remove = function() { this.$delete(); };
       this.$delete = $delete;
       
       var _storageStrategy = null;
@@ -61,21 +110,88 @@
         angular.extend(self, storedObject);
       }
       
+      /**
+       * @ngdoc function
+       * @name yaacovCR.storedObject.type:StoredObject#$create
+       * @methodOf yaacovCR.storedObject.type:StoredObject
+       * @description
+       *
+       * The $create method sets the storage strategy for the lifetime of the object (or
+       * until the next $delete) and performs the initial persistence to storage.
+       * 
+       * @param {string} storageStrategy The storage stragegy to use for this object.
+       *   Options include:
+       * 
+       * * `localStorage` - uses HTML5 local storage which will persist beyond the
+       * tab lifetime.
+       * * `sessionStorage` - uses HTML5 session storage which allows for tab reloading
+       * without relogin, but allows access only to the original tab.
+       * * `sessionStorageWithMultiTabSupport` - uses sessionStorage for object storage,
+       * but also uses localStorage storage events to request and then load the object
+       * from other participating tabs' sessionStorage.
+       *    
+       * @returns {Object} The object instance itself (`this`) to allow for chaining.
+       * .
+       * @example
+       * <pre>
+       *   var session = new ycr$StoredObject('session');
+       *   session.token = 'ABCDEFG';
+       *   $log.debug(session.$create('localStorage').token);
+       * </pre>
+       */
+      
       function $create(storageStrategy) {
         _setup(storageStrategy);
         return this.$update();
       }
       
-      function $debug() {
-        $log.debug(this);
-        return this;
-      }
-      
+      /**
+       * @ngdoc function
+       * @name yaacovCR.storedObject.type:StoredObject#$update
+       * @methodOf yaacovCR.storedObject.type:StoredObject
+       * @description
+       *
+       * The $update method persists the object to storage using the storage strategy
+       * set by the previous call to $create.
+       * 
+       * @returns {Object} The object instance itself (`this`) to allow for chaining.
+       * .
+       * @example
+       * <pre>
+       *   var session = new ycr$StoredObject('session');
+       *   session.token = 'ABCDEFG';
+       *   session.$create('localStorage');
+       *   session.token = 'HIJKLMN';
+       *   session.$update;
+       * </pre>
+       */
+         
       function $update() {
         _updateStorage();
         return this;
       }
       
+
+      /**
+       * @ngdoc function
+       * @name yaacovCR.storedObject.type:StoredObject#$delete
+       * @methodOf yaacovCR.storedObject.type:StoredObject
+       * @description
+       *
+       * The $delete method resets the object and clears it from storage.
+       * 
+       * @returns {Object} The object instance itself (`this`) to allow for chaining.
+       * .
+       * @example
+       * <pre>
+       *   var session = new ycr$StoredObject('session');
+       *   session.token = 'ABCDEFG';
+       *   session.$create('localStorage');
+       *   $log.debug(session);  // contains object with token property
+       *   session.$delete;
+       *   $log.debug(session);  // contains just the built-in methods
+       * </pre>
+       */
       function $delete() {
         _removeFromStorage();
         _resetMemory();

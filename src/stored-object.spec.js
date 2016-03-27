@@ -359,33 +359,7 @@
         expect($window.localStorage.setItem.calls.mostRecent().args).toEqual(
           jasmine.arrayContaining(['storedObject:testObject:transferred']));
       });
-            
-      it('has a $debug function that calls $log.debug', inject(function($log) {
-        testObject = resetTestObject();
-        testObject.testProperty = 'testValue';
-        spyOn($log, 'debug').and.callThrough();
-        testObject.$debug('localStorage');
-        expect($log.debug).toHaveBeenCalledWith(testObject);
-      }));
-
-      it('has a $save function that just calls $update', function() {
-        testObject = resetTestObject();
-        testObject.testProperty = 'testValue';
-        testObject.$create('localStorage');
-        spyOn(testObject, '$update').and.callThrough();
-        testObject.$save();
-        expect(testObject.$update).toHaveBeenCalled();
-      });
-
-      it('has a $remove function that just calls $delete', function() {
-        testObject = resetTestObject();
-        testObject.testProperty = 'testValue';
-        testObject.$create('localStorage');
-        spyOn(testObject, '$delete').and.callThrough();
-        testObject.$remove();
-        expect(testObject.$delete).toHaveBeenCalled();
-      });
-      
+         
     });
 
   });

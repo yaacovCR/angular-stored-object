@@ -25,6 +25,7 @@ gulp.task('default', function () {
   var options = {
     startPage: '/api/yaacovCR.storedObject',
     title: "angular-stored-object",
+    html5Mode: false,
     titleLink: "/api/yaacovCR.storedObject",
     styles: [ 'ngdoc_assets/styles.css' ],
     navTemplate: 'ngdoc_assets/navTemplate.html',

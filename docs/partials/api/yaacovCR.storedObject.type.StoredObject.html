@@ -1,0 +1,75 @@
+<h1><code ng:non-bindable="">StoredObject</code>
+<div><span class="hint">object in module <code ng:non-bindable="">yaacovCR.storedObject</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-page"><p>The <code>StoredObject</code> class object provides built-in methods that can be used by
+an object instance to interact with HTML5 storage.</p>
+<p>Properties of the object can be set just as with any other Javascript object.
+If an object with the same key has been saved to storage by this or any other
+tab, any new object will be loaded from storage and will contain the
+properties that were initially set; otherwise, the object will have no
+properties besides the built-in methods.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_$create">$create(storageStrategy)</h3>
+<div class="$create"><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-create-page"><p>The $create method sets the storage strategy for the lifetime of the object (or
+until the next $delete) and performs the initial persistence to storage.</p>
+</div><h5 id="methods_$create_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>storageStrategy</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-create-page"><p>The storage stragegy to use for this object.
+Options include:</p>
+<ul>
+<li><code>localStorage</code> - uses HTML5 local storage which will persist beyond the
+tab lifetime.</li>
+<li><code>sessionStorage</code> - uses HTML5 session storage which allows for tab reloading
+without relogin, but allows access only to the original tab.</li>
+<li><code>sessionStorageWithMultiTabSupport</code> - uses sessionStorage for object storage,
+but also uses localStorage storage events to request and then load the object
+from other participating tabs&#39; sessionStorage.</li>
+</ul>
+</div></td></tr></tbody></table><h5 id="methods_$create_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-create-page"><p>The object instance itself (<code>this</code>) to allow for chaining.
+.</p>
+</div></td></tr></table><h4 id="methods_$create_example">Example</h4>
+<div class="example"><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-create-page"><pre class="prettyprint linenums">
+var session = new ycr$StoredObject('session');
+session.token = 'ABCDEFG';
+$log.debug(session.$create('localStorage').token);
+</pre>
+</div></div>
+</div>
+</li>
+<li><h3 id="methods_$delete">$delete()</h3>
+<div class="$delete"><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-delete-page"><p>The $delete method resets the object and clears it from storage.</p>
+</div><h5 id="methods_$delete_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-delete-page"><p>The object instance itself (<code>this</code>) to allow for chaining.
+.</p>
+</div></td></tr></table><h4 id="methods_$delete_example">Example</h4>
+<div class="example"><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-delete-page"><pre class="prettyprint linenums">
+var session = new ycr$StoredObject('session');
+session.token = 'ABCDEFG';
+session.$create('localStorage');
+$log.debug(session);  // contains object with token property
+session.$delete;
+$log.debug(session);  // contains just the built-in methods
+</pre>
+</div></div>
+</div>
+</li>
+<li><h3 id="methods_$update">$update()</h3>
+<div class="$update"><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-update-page"><p>The $update method persists the object to storage using the storage strategy
+set by the previous call to $create.</p>
+</div><h5 id="methods_$update_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-update-page"><p>The object instance itself (<code>this</code>) to allow for chaining.
+.</p>
+</div></td></tr></table><h4 id="methods_$update_example">Example</h4>
+<div class="example"><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-update-page"><pre class="prettyprint linenums">
+var session = new ycr$StoredObject('session');
+session.token = 'ABCDEFG';
+session.$create('localStorage');
+session.token = 'HIJKLMN';
+session.$update;
+</pre>
+</div></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
