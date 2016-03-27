@@ -22,6 +22,11 @@ Using Bower:
 bower install --save angular-stored-object
 ```
 
+API
+===
+
+The full (small) API is [fully documented](http://yaacovcr.github.io/angular-stored-object/docs).
+
 Example
 =======
 
