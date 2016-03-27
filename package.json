@@ -1,6 +1,6 @@
 {
   "name": "angular-stored-object",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Local resource support for Angular using HTML5 storage",
   "main": "stored-object.js",
   "scripts": {
