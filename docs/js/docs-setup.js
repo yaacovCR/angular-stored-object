@@ -1,8 +1,17 @@
 NG_DOCS={
   "sections": {
-    "api": "angular-stored-object"
+    "api": "API Documentation"
   },
   "pages": [
+    {
+      "section": "api",
+      "id": "index",
+      "shortName": "index",
+      "type": "overview",
+      "moduleName": "index",
+      "shortDescription": "The angular-stored-object package provides a single module, yaacovCR.storedObject, ",
+      "keywords": "access angular angular-local-storage angular-stored-object angularjs api best built-in combined create data example github guya html5 http https interact local localstorage md methods module multiple net ngresource ngstorage objects org overview package practical providing readme service session sessionstorage sharing single storage storedobject strategy supports tabs transient type yaacovcr ycr"
+    },
     {
       "section": "api",
       "id": "yaacovCR.storedObject",
@@ -36,7 +45,7 @@ NG_DOCS={
   },
   "__file": "_FAKE_DEST_/js/docs-setup.js",
   "__options": {
-    "startPage": "/api/yaacovCR.storedObject",
+    "startPage": "/api",
     "scripts": [
       "js/angular.min.js",
       "js/angular-animate.min.js",
@@ -54,7 +63,6 @@ NG_DOCS={
     "navTemplate": "ngdoc_assets/navTemplate.html",
     "navContent": "<ul class=\"nav pull-right\">\r\n\t<li><a href=\"https://github.com/yaacovCR/angular-stored-object\"><i class=\"icon-github icon-white\"></i> GitHub</a></li>\r\n</ul>",
     "navTemplateData": {},
-    "titleLink": "/api/yaacovCR.storedObject",
     "loadDefaults": {
       "angular": true,
       "angularAnimate": true,
@@ -63,7 +71,7 @@ NG_DOCS={
   },
   "html5Mode": false,
   "editExample": true,
-  "startPage": "/api/yaacovCR.storedObject",
+  "startPage": "/api",
   "scripts": [
     "js/angular.min.js",
     "js/angular-animate.min.js",

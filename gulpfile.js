@@ -23,10 +23,8 @@ gulp.task('push', function () {
 gulp.task('default', function () {
   var ngdocs = require('gulp-ngdocs');
   var options = {
-    startPage: '/api/yaacovCR.storedObject',
     title: "angular-stored-object",
     html5Mode: false,
-    titleLink: "/api/yaacovCR.storedObject",
     styles: [ 'ngdoc_assets/styles.css' ],
     navTemplate: 'ngdoc_assets/navTemplate.html',
     scripts: [
@@ -37,8 +35,13 @@ gulp.task('default', function () {
       'node_modules/marked/lib/marked.js'    
     ]
   };
-  
-  return gulp.src('src/*.js')
-    .pipe(ngdocs.process(options))
+
+  return ngdocs.sections({
+    api: {
+      glob:['src/*.js', '!src/*.spec.js'],
+      api: true,
+      title: 'API Documentation'
+    }
+  }).pipe(ngdocs.process(options))
     .pipe(gulp.dest('./docs'));
 });

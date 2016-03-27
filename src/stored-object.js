@@ -2,6 +2,29 @@
 
 /**
  * @ngdoc overview
+ * @name index
+ * @description
+ *
+ * The `angular-stored-object` package provides a single module, {@link yaacovCR.storedObject `yaacovCR.storedObject`}, 
+ * that provides a single service, {@link yaacovCR.storedObject.ycr$StoredObject `ycr$StoredObject`}, that can be
+ * used to create many objects of type {@link yaacovCR.storedObject.type:StoredObject `StoredObject`} containing built-in
+ * methods used to interact with HTML5 storage.
+ * 
+ * The best of {@link https://docs.angularjs.org/api/ngResource/service/$resource ngResource},
+ * {@link https://github.com/gsklee/ngStorage ngStorage} and {@link https://github.com/grevory/angular-local-storage
+ * angular-local-storage} are combined to give you access to local and session storage within Angular, also providing
+ * a storage strategy that supports sharing sessionStorage data between multiple tabs via {@link
+ * http://stackoverflow.com/questions/20325763/browser-sessionstorage-share-between-tabs transient} {@link
+ * http://blog.guya.net/2015/06/12/sharing-sessionstorage-between-tabs-for-secure-multi-tab-authentication/ localStorage}
+ * use.
+ * 
+ * The {@link https://github.com/yaacovCR/angular-stored-object/blob/master/README.md README} on
+ * {@link https://github.com/yaacovCR/angular-stored-object Github} contains a practical example.
+ * 
+ */
+
+/**
+ * @ngdoc overview
  * @name yaacovCR.storedObject
  * @description
  *
