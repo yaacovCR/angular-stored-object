@@ -5,8 +5,6 @@
  * @name yaacovCR.storedObject
  * @description
  *
- * # yaacovCR.storedObject
- *
  * The `yaacovCR.storedObject` module provides interaction support with HTML5
  * storage objects via the ycr$StoredObject service.
  * 
@@ -22,8 +20,6 @@
    * @ngdoc function
    * @name yaacovCR.storedObject.ycr$StoredObject
    * @description
-   *
-   * # yaacovCR.storedObject.ycr$StoredObject
    *
    * The `ycr$StoredObject` service consists of a "class" object, (i.e. a constuctor
    * function) which, when instantiated (i.e. when called via new), returns a new

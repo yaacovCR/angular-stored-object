@@ -9,7 +9,7 @@ NG_DOCS={
       "shortName": "yaacovCR.storedObject",
       "type": "overview",
       "moduleName": "yaacovCR.storedObject",
-      "shortDescription": "yaacovCR.storedObject",
+      "shortDescription": "The yaacovCR.storedObject module provides interaction support with HTML5",
       "keywords": "api html5 interaction module objects overview service storage storedobject support usage yaacovcr ycr"
     },
     {
@@ -27,7 +27,7 @@ NG_DOCS={
       "shortName": "yaacovCR.storedObject.ycr$StoredObject",
       "type": "function",
       "moduleName": "yaacovCR.storedObject",
-      "shortDescription": "yaacovCR.storedObject.ycr$StoredObject",
+      "shortDescription": "The ycr$StoredObject service consists of a &quot;class&quot; object, (i.e. a constuctor",
       "keywords": "$create abcdefg api built-in called class consists constuctor corresponds function html5 initially installed instance instantiated instantiation interact javascript key loaded localstorage methods module object properties provided requires returned returns saved service session set storage stored storedobject tab token type unique var yaacovcr ycr"
     }
   ],
