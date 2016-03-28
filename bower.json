@@ -1,7 +1,6 @@
 {
   "name": "angular-stored-object",
   "description": "Local resource support for Angular using HTML5 storage",
-  "version": "1.0.3",
   "homepage": "https://github.com/yaacovCR/angular-stored-object",
   "main": "src/stored-object.js",
   "repository": {
@@ -20,7 +19,9 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "coverage"
+    "coverage",
+    "ngdoc_assets",
+    "docs"
   ],
   "authors": [
     "Yaacov Rydzinski <yaacovCR@gmail.com>"

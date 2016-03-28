@@ -20,7 +20,12 @@ gulp.task('push', function () {
   
 });
 
-gulp.task('default', function () {
+gulp.task('clean', function() {
+  var del = require('del');
+  del.sync['docs/**'];
+});
+
+gulp.task('build', ['clean'], function () {
   var ngdocs = require('gulp-ngdocs');
   var options = {
     title: "angular-stored-object",
@@ -44,4 +49,8 @@ gulp.task('default', function () {
     }
   }).pipe(ngdocs.process(options))
     .pipe(gulp.dest('./docs'));
+});
+
+gulp.task('default', function () {
+  gulp.start('build');
 });

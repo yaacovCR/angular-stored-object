@@ -7,6 +7,13 @@
 # Test Output
 /coverage
 
+# Pretty Docs
+/docs
+/ngdoc_assets
+
+# Configuration Files
+.*
+
 # =========================
 
 # Windows image file caches

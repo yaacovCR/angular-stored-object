@@ -5,9 +5,11 @@
   "main": "stored-object.js",
   "scripts": {
     "test": "karma start",
-    "build": "gulp",
+    "build": "gulp build",
     "display": "node node_modules/http-server/bin/http-server docs -p 9200 -c-1",
-    "push": "gulp push"
+    "push": "gulp push",
+    "preversion": "npm test && npm run build & git add -A",
+    "postversion": "git push && git push --tags && npm run push"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
   "license": "MIT",
   "devDependencies": {
     "angular-mocks": "^1.5.1",
+    "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-git": "^1.7.0",
     "gulp-ngdocs": "yaacovCR/gulp-ngdocs",
