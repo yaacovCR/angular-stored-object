@@ -69,4 +69,48 @@ session.$update;
 </li>
 </ul>
 </div>
+<div class="member event"><h2 id="events">Events</h2>
+<ul class="events"><li><h3 id="events_storedobject꞉key꞉externalchange">storedObject꞉key꞉externalChange</h3>
+<div class="storedobject꞉key꞉externalchange"><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-storedobject-key-externalchange-page"><p>The externalChange event is broadcasted on <code>$rootScope</code> when the StoredObject
+object instance has been changed externally, i.e. via interaction with another tab.</p>
+<p>Note that the full event name is <code>storedObject:key:externalChange</code>, where key
+represents the string passed on object instantiation, and storedObject creates a
+namespace for this module. Regular colons are used as separators.</p>
+<p>This event may be fired at start-up if the object is loaded from another tab which
+is employing the <code>sessionStorageWithMultiTabSupport</code> strategy. It may happen at any
+time thereafter for both the <code>localStorage</code> and <code>sessionStorageWithMultiTabSupport</code>
+strategies.</p>
+<p>No event is fired when the object has been changed by the current tab, no matter
+the strategy in use. This is by design, as an event was felt to be unnecessary;
+whatever service or controller that has been tasked with updating the StoredObject 
+should be responsible as well for kicking off a response, or firing an event as
+necessary. External changes, i.e. from another tab, happen outside the Angular
+context and therefore <code>$rootScope.$apply</code> is called to force a digest cycle, which
+will usually be all that is required.</p>
+<p>Sometimes, however, the entire state of the application may be invalidated if the
+stored object is changed by another tab. It is for these instances that the
+externalChange is provided. For example, if the session has been stored using this
+module, if session expiration is communicated by another tab, the current state
+may  be invalidated. The provided example uses
+<a href="https://github.com/angular-ui/ui-router">UI-Router</a>&#39;s ability to reload the
+current state to handle this event, which of course presumes that an attempt to
+change to the given state without a valid session is handled elsewhere.</p>
+<p>The
+<a href="https://github.com/yaacovCR/angular-stored-object/blob/master/README.md">README</a> on <a href="https://github.com/yaacovCR/angular-stored-object">Github</a>
+contains a more complete example.</p>
+</div><div class="inline"></div>
+<div class="inline"></div>
+<h4 id="events_storedobject꞉key꞉externalchange_example">Example</h4>
+<div class="example"><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-storedobject-key-externalchange-page"><pre class="prettyprint linenums">
+$rootScope.$on('storedObject:session:externalChange', function() {
+  $timeout(function() {
+    $state.reload();
+  });
+}
+</pre>
+</div></div>
+</div>
+</li>
+</ul>
+</div>
 </div>

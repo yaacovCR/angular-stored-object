@@ -37,7 +37,7 @@ NG_DOCS={
       "type": "function",
       "moduleName": "yaacovCR.storedObject",
       "shortDescription": "The ycr$StoredObject service consists of a &quot;class&quot; object, (i.e. a constuctor",
-      "keywords": "$create abcdefg api built-in called class consists constuctor corresponds function html5 initially installed instance instantiated instantiation interact javascript key loaded localstorage methods module object properties provided requires returned returns saved service session set storage stored storedobject tab token type unique var yaacovcr ycr"
+      "keywords": "$create abcdefg api built-in called class consists constuctor function html5 initially installed instance instantiated instantiation interact javascript key loaded localstorage methods module object properties provided requires returned returns saved service session set storage stored storedobject tab token type unique var yaacovcr ycr"
     }
   ],
   "apis": {

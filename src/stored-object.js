@@ -46,7 +46,8 @@
    *
    * The `ycr$StoredObject` service consists of a "class" object, (i.e. a constuctor
    * function) which, when instantiated (i.e. when called via new), returns a new
-   * object instance that corresponds to the key provided during instantiation.
+   * object instance of type {@link yaacovCR.storedObject.type:StoredObject
+   * StoredObject} that will be stored using the key provided during instantiation.
    *  
    * Requires the {@link yaacovCR.storedObject `yaacovCR.storedObject`} module to be
    * installed.
@@ -83,7 +84,7 @@
      * 
      * Properties of the object can be set just as with any other Javascript object.
      * If an object with the same key has been saved to storage by this or any other
-     * tab, any new object will be loaded from storage and will contain the
+     * tab, the new object will be loaded from storage and will contain the
      * properties that were initially set; otherwise, the object will have no
      * properties besides the built-in methods.
      * 
@@ -190,7 +191,6 @@
         return this;
       }
       
-
       /**
        * @ngdoc function
        * @name yaacovCR.storedObject.type:StoredObject#$delete
@@ -286,6 +286,56 @@
           $window.attachEvent('onstorage', _onStorage);
         } 
       }
+      
+      /**
+       * @ngdoc event
+       * @name yaacovCR.storedObject.type:StoredObject#storedObject꞉key꞉externalChange
+       * @eventOf yaacovCR.storedObject.type:StoredObject
+       * @description
+       *
+       * The externalChange event is broadcasted on `$rootScope` when the StoredObject
+       * object instance has been changed externally, i.e. via interaction with another tab.
+       * 
+       * Note that the full event name is `storedObject:key:externalChange`, where key
+       * represents the string passed on object instantiation, and storedObject creates a
+       * namespace for this module. Regular colons are used as separators.
+       * 
+       * This event may be fired at start-up if the object is loaded from another tab which
+       * is employing the `sessionStorageWithMultiTabSupport` strategy. It may happen at any
+       * time thereafter for both the `localStorage` and `sessionStorageWithMultiTabSupport`
+       * strategies.
+       * 
+       * No event is fired when the object has been changed by the current tab, no matter
+       * the strategy in use. This is by design, as an event was felt to be unnecessary;
+       * whatever service or controller that has been tasked with updating the StoredObject 
+       * should be responsible as well for kicking off a response, or firing an event as
+       * necessary. External changes, i.e. from another tab, happen outside the Angular
+       * context and therefore `$rootScope.$apply` is called to force a digest cycle, which
+       * will usually be all that is required.
+       * 
+       * Sometimes, however, the entire state of the application may be invalidated if the
+       * stored object is changed by another tab. It is for these instances that the
+       * externalChange is provided. For example, if the session has been stored using this
+       * module, if session expiration is communicated by another tab, the current state
+       * may  be invalidated. The provided example uses
+       * {@link https://github.com/angular-ui/ui-router UI-Router}'s ability to reload the
+       * current state to handle this event, which of course presumes that an attempt to
+       * change to the given state without a valid session is handled elsewhere.
+       * 
+       * The
+       * {@link https://github.com/yaacovCR/angular-stored-object/blob/master/README.md
+       * README} on {@link https://github.com/yaacovCR/angular-stored-object Github}
+       * contains a more complete example.
+       * 
+       * @example
+       * <pre>
+       *   $rootScope.$on('storedObject:session:externalChange', function() {
+       *     $timeout(function() {
+       *       $state.reload();
+       *     });
+       *   }
+       * </pre>
+       */
         
       function _onStorage(event) {
         var externallyChanged;

@@ -25,7 +25,7 @@ bower install --save angular-stored-object
 API
 ===
 
-The full (small) API is [fully documented](http://yaacovcr.github.io/angular-stored-object/docs).
+The small API is [fully documented](http://yaacovcr.github.io/angular-stored-object/docs).
 
 Example
 =======
@@ -103,7 +103,7 @@ For completion, the run block:
 
   function runBlock($rootScope, $state, $timeout, auth) {
     $rootScope.$on('$stateChangeStart', onStateChangeStart);
-    $rootScope.$on('storedObject:session:changed', onSessionChange);
+    $rootScope.$on('storedObject:session:externalChange', onSessionChange);
     
     function onStateChangeStart(event, toState, toParams) {
       if (toState.name === 'login' && auth.isLoggedIn()) {
