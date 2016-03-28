@@ -12,7 +12,7 @@
 /ngdoc_assets
 
 # Configuration Files
-.*
+/.travis.yml
 
 # =========================
 
