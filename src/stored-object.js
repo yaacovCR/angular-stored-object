@@ -72,7 +72,7 @@
    * </pre>
    */
     
-  function StoredObjectService($window, $rootScope, $log) {
+  function StoredObjectService($window, $rootScope) {
 
     /**
      * @ngdoc object
@@ -395,6 +395,6 @@
     
   }
   
-  StoredObjectService.$inject = ['$window', '$rootScope', '$log'];
+  StoredObjectService.$inject = ['$window', '$rootScope'];
   
 })(window, window.angular);
