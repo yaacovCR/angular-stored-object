@@ -11,9 +11,6 @@
 /docs
 /ngdoc_assets
 
-# Configuration Files
-/.travis.yml
-
 # =========================
 
 # Windows image file caches

@@ -17,7 +17,6 @@ gulp.task('push', function () {
       });
     });
   });
-  
 });
 
 gulp.task('clean', function() {
