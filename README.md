@@ -39,7 +39,7 @@ A session service consists of an object that when stored will be identified via 
     .module('auth')
     .factory('session', session);
 
-  function session(StoredObject) {
+  function session(ycr$StoredObject) {
     return new ycr$StoredObject('session');
   }
   ```
