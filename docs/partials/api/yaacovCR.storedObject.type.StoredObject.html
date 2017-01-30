@@ -15,8 +15,10 @@ properties besides the built-in methods.</p>
 <div class="member method"><h2 id="methods">Methods</h2>
 <ul class="methods"><li><h3 id="methods_$create">$create(storageStrategy)</h3>
 <div class="$create"><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-create-page"><p>The $create method sets the storage strategy for the lifetime of the object (or
-until the next $delete) and performs the initial persistence to storage.</p>
-</div><h5 id="methods_$create_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>storageStrategy</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-create-page"><p>The storage stragegy to use for this object.
+until the next $delete) and also automatically calls the first $update, i.e.
+performs an initial persistence to storage. $create is unnecessary if a
+defaultStorageStrategy has been specified with service creation.</p>
+</div><h5 id="methods_$create_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>storageStrategy</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-create-page"><p>The storage strategy to use for this object.
 Options include:</p>
 <ul>
 <li><code>localStorage</code> - uses HTML5 local storage which will persist beyond the
@@ -53,8 +55,8 @@ $log.debug(session);  // contains just the built-in methods
 </div>
 </li>
 <li><h3 id="methods_$update">$update()</h3>
-<div class="$update"><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-update-page"><p>The $update method persists the object to storage using the storage strategy
-set by the previous call to $create.</p>
+<div class="$update"><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-update-page"><p>The $update method persists the object to storage using the default storage
+strategy or the storage strategy set by the previous call call to $create.</p>
 </div><h5 id="methods_$update_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-update-page"><p>The object instance itself (<code>this</code>) to allow for chaining.</p>
 </div></td></tr></table><h4 id="methods_$update_example">Example</h4>
 <div class="example"><div class="yaacovcr-storedobject-type-page yaacovcr-storedobject-type-storedobject-update-page"><pre class="prettyprint linenums">

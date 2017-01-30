@@ -28,7 +28,7 @@ NG_DOCS={
       "type": "object",
       "moduleName": "yaacovCR.storedObject",
       "shortDescription": "The StoredObject class object provides built-in methods that can be used by",
-      "keywords": "$create $delete $log $update abcdefg access allow allows api built-in call chaining class clears debug events function hijklmn html5 include initial initially instance interact javascript key lifetime load loaded local localstorage method methods object options original participating performs persist persistence persists previous properties property reloading relogin request resets saved session sessionstorage sessionstoragewithmultitabsupport set sets storage storagestrategy storedobject stragegy strategy tab tabs token type var yaacovcr ycr"
+      "keywords": "$create $delete $log $update abcdefg access allow allows api automatically built-in call calls chaining class clears creation debug default defaultstoragestrategy events function hijklmn html5 include initial initially instance interact javascript key lifetime load loaded local localstorage method methods object options original participating performs persist persistence persists previous properties property reloading relogin request resets saved service session sessionstorage sessionstoragewithmultitabsupport set sets storage storagestrategy storedobject strategy tab tabs token type unnecessary var yaacovcr ycr"
     },
     {
       "section": "api",
@@ -37,7 +37,7 @@ NG_DOCS={
       "type": "function",
       "moduleName": "yaacovCR.storedObject",
       "shortDescription": "The ycr$StoredObject service consists of a &quot;class&quot; object, (i.e. a constuctor",
-      "keywords": "$create abcdefg api built-in called class consists constuctor function html5 initially installed instance instantiated instantiation interact javascript key loaded localstorage methods module object properties provided requires returned returns saved service session set storage stored storedobject tab token type unique var yaacovcr ycr"
+      "keywords": "$create $update abcdefg access allows api based built-in call called class consists constuctor default defaultstoragestrategy events function html5 include initial initially input installed instance instantiated instantiating instantiation interact javascript key lifetime load loaded local localstorage methods module note object options original participating performs persist properties provided reloading relogin request requires returned returns saved service session sessionstorage sessionstoragewithmultitabsupport set storage stored storedobject strategy tab tabs token type unique user var yaacovcr ycr"
     }
   ],
   "apis": {

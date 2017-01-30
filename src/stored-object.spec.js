@@ -22,7 +22,7 @@
       var $rootScope;
       var testObject;
       
-      function resetTestObject(initialStore, preventDefault) {
+      function resetTestObject(initialStore, preventDefault, defaultStorageStrategy) {
         resetWindowService(
           (initialStore && initialStore.sessionStorageWithMultiTabSupport) ? initialStore.sessionStorageWithMultiTabSupport : null);
         
@@ -43,7 +43,7 @@
         spyOn($rootScope, '$broadcast').and.returnValue({ defaultPrevented: preventDefault });
         spyOn($rootScope, '$apply').and.callThrough();
                 
-        testObject = new StoredObject('testObject')
+        testObject = new StoredObject('testObject', defaultStorageStrategy);
         
         return testObject;
       }
@@ -168,67 +168,81 @@
       supportedStorageStrategies.forEach(function(storageStrategy) {
         describe('and supports ' + storageStrategy, function() {
           var storageType = (storageStrategy === 'localStorage') ? 'localStorage' : 'sessionStorage';
-          
-          beforeEach(function() {
-            testObject = resetTestObject();
-            testObject.testProperty = 'testValue';
-          });
-          
-          it('with storage object creation via $create', function() {
-            var callCount = $window.localStorage.setItem.calls.count();
-            testObject.$create(storageStrategy);
-            if (storageStrategy === 'sessionStorageWithMultiTabSupport') {
-              expect($window.localStorage.setItem.calls.mostRecent().args).toEqual(
-                jasmine.arrayContaining(['storedObject:testObject:updated']));
-            } else if (storageStrategy === 'localStorage') {
-              expect($window.localStorage.setItem.calls.count()).toBe(callCount + 1);
-              expect($window.localStorage.setItem.calls.mostRecent().args).not.toEqual(
-                jasmine.arrayContaining(['storedObject:testObject:updated']));
-            } else {
-              expect($window.localStorage.setItem.calls.count()).toBe(callCount);
-            }
-            expect(angular.fromJson($window[storageType].data['storedObject:testObject'])).toEqual(jasmine.objectContaining({
-              $storageStrategy: storageStrategy,
-              testProperty: 'testValue'
-            }));
-          });
 
-          it('with storage object modification via $update', function() {
-            testObject.$create(storageStrategy);
-            testObject.testProperty = 'testValue2';
-            expect(angular.fromJson($window[storageType].data['storedObject:testObject'])).toEqual(jasmine.objectContaining({
-              $storageStrategy: storageStrategy,
-              testProperty: 'testValue'
-            }));
-            var callCount = $window.localStorage.setItem.calls.count();
-            testObject.$update();
-            if (storageStrategy === 'sessionStorageWithMultiTabSupport') {
-              expect($window.localStorage.setItem.calls.mostRecent().args).toEqual(
-                jasmine.arrayContaining(['storedObject:testObject:updated']));
-            } else if (storageStrategy === 'localStorage') {
-              expect($window.localStorage.setItem.calls.count()).toBe(callCount + 1);
-              expect($window.localStorage.setItem.calls.mostRecent().args).not.toEqual(
-                jasmine.arrayContaining(['storedObject:testObject:updated']));
-            } else {
-              expect($window.localStorage.setItem.calls.count()).toBe(callCount);
-            }
-            expect(angular.fromJson($window[storageType].data['storedObject:testObject'])).toEqual(jasmine.objectContaining({
-              $storageStrategy: storageStrategy,
-              testProperty: 'testValue2'
-            }));
-          });
+          [false, true].forEach(function(usingDefault) {
 
-          it('with storage object deletion via $delete', function() {
-            testObject.$create(storageStrategy);
-            var callCount = $window.localStorage.setItem.calls.count(); 
-            testObject.$delete();
-            if (storageStrategy === 'sessionStorageWithMultiTabSupport') {
-              expect($window.localStorage.setItem.calls.mostRecent().args).toEqual(
-                jasmine.arrayContaining(['storedObject:testObject:removed']));
-            } else {
-              expect($window.localStorage.setItem.calls.count()).toBe(callCount);
-            }
-            expect($window[storageType].data['storedObject:testObject']).toBeUndefined();
+            describe(usingDefault ? 'using a default strategy' : '', function() {
+          
+              beforeEach(function() {
+                testObject = resetTestObject(null, null, usingDefault ? storageStrategy : null);
+                testObject.testProperty = 'testValue';
+              });
+
+              it('with storage object creation via $create', function() {
+                var callCount = $window.localStorage.setItem.calls.count();
+                testObject.$create(storageStrategy);
+                if (storageStrategy === 'sessionStorageWithMultiTabSupport') {
+                  expect($window.localStorage.setItem.calls.mostRecent().args).toEqual(
+                    jasmine.arrayContaining(['storedObject:testObject:updated']));
+                } else if (storageStrategy === 'localStorage') {
+                  expect($window.localStorage.setItem.calls.count()).toBe(callCount + 1);
+                  expect($window.localStorage.setItem.calls.mostRecent().args).not.toEqual(
+                    jasmine.arrayContaining(['storedObject:testObject:updated']));
+                } else {
+                  expect($window.localStorage.setItem.calls.count()).toBe(callCount);
+                }
+                expect(angular.fromJson($window[storageType].data['storedObject:testObject'])).toEqual(jasmine.objectContaining({
+                  $storageStrategy: storageStrategy,
+                  testProperty: 'testValue'
+                }));
+              });
+
+              it('with storage object modification via $update', function() {
+                if (!usingDefault) {
+                  testObject.$create(storageStrategy);
+                }
+                testObject.testProperty = 'testValue2';
+                if (!usingDefault) {
+                  expect(angular.fromJson($window[storageType].data['storedObject:testObject'])).toEqual(jasmine.objectContaining({
+                    $storageStrategy: storageStrategy,
+                    testProperty: 'testValue'
+                  }));
+                }
+                var callCount = $window.localStorage.setItem.calls.count();
+                testObject.$update();
+                if (storageStrategy === 'sessionStorageWithMultiTabSupport') {
+                  expect($window.localStorage.setItem.calls.mostRecent().args).toEqual(
+                    jasmine.arrayContaining(['storedObject:testObject:updated']));
+                } else if (storageStrategy === 'localStorage') {
+                  expect($window.localStorage.setItem.calls.count()).toBe(callCount + 1);
+                  expect($window.localStorage.setItem.calls.mostRecent().args).not.toEqual(
+                    jasmine.arrayContaining(['storedObject:testObject:updated']));
+                } else {
+                  expect($window.localStorage.setItem.calls.count()).toBe(callCount);
+                }
+                expect(angular.fromJson($window[storageType].data['storedObject:testObject'])).toEqual(jasmine.objectContaining({
+                  $storageStrategy: storageStrategy,
+                  testProperty: 'testValue2'
+                }));
+              });
+
+              it('with storage object deletion via $delete', function() {
+                if (!usingDefault) {
+                  testObject.$create(storageStrategy);
+                } else {
+                  testObject.$update();
+                }
+                var callCount = $window.localStorage.setItem.calls.count(); 
+                testObject.$delete();
+                if (storageStrategy === 'sessionStorageWithMultiTabSupport') {
+                  expect($window.localStorage.setItem.calls.mostRecent().args).toEqual(
+                    jasmine.arrayContaining(['storedObject:testObject:removed']));
+                } else {
+                  expect($window.localStorage.setItem.calls.count()).toBe(callCount);
+                }
+                expect($window[storageType].data['storedObject:testObject']).toBeUndefined();
+              });
+            });            
           });
         });
       });

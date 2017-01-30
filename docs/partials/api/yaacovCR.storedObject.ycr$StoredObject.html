@@ -11,8 +11,20 @@ object instance of type <a href="#/api/yaacovCR.storedObject.type:StoredObject">
 installed.</p>
 </div></div>
 <h2 id="usage">Usage</h2>
-<div class="usage"><pre class="prettyprint linenums">new ycr$StoredObject(key);</pre>
+<div class="usage"><pre class="prettyprint linenums">new ycr$StoredObject(key[, defaultStorageStrategy]);</pre>
 <h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>key</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="yaacovcr-storedobject-ycr-storedobject-page"><p>A unique key under which the object instance will be stored.</p>
+</div></td></tr><tr><td>defaultStorageStrategy <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="yaacovcr-storedobject-ycr-storedobject-page"><p>A storage strategy to use by default if
+$update is later called without $create.</p>
+<p>Options include:</p>
+<ul>
+<li><code>localStorage</code> - uses HTML5 local storage which will persist beyond the
+tab lifetime.</li>
+<li><code>sessionStorage</code> - uses HTML5 session storage which allows for tab reloading
+without relogin, but allows access only to the original tab.</li>
+<li><code>sessionStorageWithMultiTabSupport</code> - uses sessionStorage for object storage,
+but also uses localStorage storage events to request and then load the object
+from other participating tabs&#39; sessionStorage.</li>
+</ul>
 </div></td></tr></tbody></table><h4 id="usage_returns">Returns</h4><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="yaacovcr-storedobject-ycr-storedobject-page"><p>An object instance of type
 <a href="#/api/yaacovCR.storedObject.type:StoredObject"><code>StoredObject</code></a> with built-in
 methods that can be used to interact with HTML5 storage.</p>
@@ -24,9 +36,19 @@ properties besides the built-in methods.</p>
 </div></td></tr></table></div>
 <h2 id="example">Example</h2>
 <div class="example"><div class="yaacovcr-storedobject-ycr-storedobject-page"><pre class="prettyprint linenums">
+// The storage strategy can be set when instantiating the object.
+
+var session = new ycr$StoredObject('session', 'localStorage');
+session.token = 'ABCDEFG';
+session.$update().token;
+
+// Or, the session can be set up as a service without specifying a default.
+// The storage strategy can then be set later based on user input.
+// Note that the initial call to $create also performs the first $update.
+
 var session = new ycr$StoredObject('session');
 session.token = 'ABCDEFG';
 session.$create('localStorage');
-</pre>
+</pre>   * </p>
 </div></div>
 </div>
