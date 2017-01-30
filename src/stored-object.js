@@ -54,22 +54,45 @@
    *
    * @constructor
    * @param {string} key A unique key under which the object instance will be stored.
-   * @returns {Object} An object instance of type
-   *   {@link yaacovCR.storedObject.type:StoredObject `StoredObject`} with built-in
-   *   methods that can be used to interact with HTML5 storage.
+   * @param {string=} defaultStorageStrategy A storage strategy to use by default if
+   * $update is later called without $create.
    * 
-   *   Properties of the object can be set just as with any other Javascript object.
-   *   If an object with the same key has been saved to storage by this or any other
-   *   tab, the returned object will be loaded from storage and will contain the
-   *   properties that were initially set; otherwise, the object will have no
-   *   properties besides the built-in methods.
+   * Options include:
+   * *  `localStorage` - uses HTML5 local storage which will persist beyond the
+   * tab lifetime.
+   * * `sessionStorage` - uses HTML5 session storage which allows for tab reloading
+   * without relogin, but allows access only to the original tab.
+   * * `sessionStorageWithMultiTabSupport` - uses sessionStorage for object storage,
+   * but also uses localStorage storage events to request and then load the object
+   * from other participating tabs' sessionStorage.
+   * 
+   * @returns {Object} An object instance of type
+   * {@link yaacovCR.storedObject.type:StoredObject `StoredObject`} with built-in
+   * methods that can be used to interact with HTML5 storage.
+   * 
+   * Properties of the object can be set just as with any other Javascript object.
+   * If an object with the same key has been saved to storage by this or any other
+   * tab, the returned object will be loaded from storage and will contain the
+   * properties that were initially set; otherwise, the object will have no
+   * properties besides the built-in methods.
    * 
    * @example
    * <pre>
+   *   // The storage strategy can be set when instantiating the object.
+   * 
+   *   var session = new ycr$StoredObject('session', 'localStorage');
+   *   session.token = 'ABCDEFG';
+   *   session.$update().token;
+   * 
+   *   // Or, the session can be set up as a service without specifying a default.
+   *   // The storage strategy can then be set later based on user input.
+   *   // Note that the initial call to $create also performs the first $update.
+   * 
    *   var session = new ycr$StoredObject('session');
    *   session.token = 'ABCDEFG';
    *   session.$create('localStorage');
-   * </pre>
+   * </pre>   * 
+   * 
    */
     
   function StoredObjectService($window, $rootScope) {
@@ -90,7 +113,7 @@
      * 
      */
     
-    function StoredObject(_key) {
+    function StoredObject(_key, _defaultStorageStrategy) {
       
       this.$create = $create;
       this.$update = $update;
@@ -137,10 +160,12 @@
        * @description
        *
        * The $create method sets the storage strategy for the lifetime of the object (or
-       * until the next $delete) and performs the initial persistence to storage.
+       * until the next $delete) and also automatically calls the first $update, i.e.
+       * performs an initial persistence to storage. $create is unnecessary if a
+       * defaultStorageStrategy has been specified with service creation.
        * 
-       * @param {string} storageStrategy The storage stragegy to use for this object.
-       *   Options include:
+       * @param {string} storageStrategy The storage strategy to use for this object.
+       * Options include:
        * 
        * * `localStorage` - uses HTML5 local storage which will persist beyond the
        * tab lifetime.
@@ -171,8 +196,8 @@
        * @methodOf yaacovCR.storedObject.type:StoredObject
        * @description
        *
-       * The $update method persists the object to storage using the storage strategy
-       * set by the previous call to $create.
+       * The $update method persists the object to storage using the default storage
+       * strategy or the storage strategy set by the previous call call to $create.
        * 
        * @returns {Object} The object instance itself (`this`) to allow for chaining.
        * 
@@ -187,7 +212,11 @@
        */
          
       function $update() {
-        _updateStorage();
+        if (_defaultStorageStrategy && !_storageStrategy) {
+          return this.$create(_defaultStorageStrategy);
+        } else {
+          _updateStorage();
+        }
         return this;
       }
       
