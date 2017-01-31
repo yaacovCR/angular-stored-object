@@ -38,8 +38,9 @@
           $rootScope = _$rootScope_;
           StoredObject = _ycr$StoredObject_;
         });
-                
+
         spyOn($window.localStorage, 'setItem').and.callThrough();
+        spyOn($window.sessionStorage, 'setItem').and.callThrough();
         spyOn($rootScope, '$broadcast').and.returnValue({ defaultPrevented: preventDefault });
         spyOn($rootScope, '$apply').and.callThrough();
                 
@@ -115,53 +116,6 @@
           testObject = resetTestObject()
           expect(testObject).toBeTruthy();
           expect(testObject.testProperty).toBeUndefined();
-        });
-      });
-      
-      describe('and automatically gets value if possible at start-up', function() {
-        supportedStorageStrategies.forEach(function(storageStrategy) {
-          var initialStore = {};
-          initialStore[storageStrategy] = 'testValue';
-          if (storageStrategy === 'sessionStorageWithMultiTabSupport') {
-            [false, true].forEach(function(preventDefault) {
-              it('using ' + storageStrategy + ((preventDefault) ? ' ' : ' not ') + 'preventing default', function() {
-                testObject = resetTestObject(initialStore, preventDefault);
-                expect(testObject.testProperty).toBe('testValue');
-                expect($window.localStorage.setItem.calls.first().args).toEqual(
-                  jasmine.arrayContaining(['storedObject:testObject:requested']));
-                expect($window.localStorage.setItem.calls.mostRecent().args).toEqual(
-                  jasmine.arrayContaining(['storedObject:testObject:transferred']));
-                expect($rootScope.$broadcast.calls.count()).toBe(1);
-                expect($rootScope.$broadcast).toHaveBeenCalledWith('storedObject:testObject:externalChange');
-                expect($rootScope.$apply.calls.count()).toBe((preventDefault) ? 0 : 1);
-              });              
-            });
-          } else {
-            it('using ' + storageStrategy, function() {
-              testObject = resetTestObject(initialStore);
-              expect(testObject.testProperty).toBe('testValue');
-              expect($window.localStorage.setItem.calls.count()).toBe(0);
-              expect($rootScope.$broadcast.calls.count()).toBe(0);
-            });            
-          }
-        });
-      });
-
-      describe('and prioritizes sessionStorage', function() {
-        it('over localStorage', function() {
-          testObject = resetTestObject({
-            sessionStorage: 'sessionStorageRocks',
-            localStorage: 'localStorageRules'
-          });
-          expect(testObject.testProperty).toBe('sessionStorageRocks');
-        });
-        
-        it('and over other tab\'s sessionStorage', function() {
-          testObject = resetTestObject({
-            sessionStorage: 'thisSessionStorageRocks',
-            sessionStorageWithMultiTabSupport: 'theOtherSessionStorageRules'
-          });
-          expect(testObject.testProperty).toBe('thisSessionStorageRocks');
         });
       });
       
@@ -244,6 +198,83 @@
               });
             });            
           });
+        });
+      });
+
+      
+      describe('and automatically gets value if possible at start-up', function() {
+        supportedStorageStrategies.forEach(function(storageStrategy) {
+          var initialStore = {};
+          initialStore[storageStrategy] = 'testValue';
+
+          if (storageStrategy === 'sessionStorageWithMultiTabSupport') {
+
+            [false, true].forEach(function(preventDefault) {
+
+              it('using ' + storageStrategy + ((preventDefault) ? ' ' : ' not ') + 'preventing default', function() {
+                testObject = resetTestObject(initialStore, preventDefault);
+                expect(testObject.testProperty).toBe('testValue');
+                expect($window.localStorage.setItem.calls.count()).toEqual(2);
+                expect($window.localStorage.setItem.calls.first().args).toEqual(
+                  jasmine.arrayContaining(['storedObject:testObject:requested']));
+                expect($window.localStorage.setItem.calls.mostRecent().args).toEqual(
+                  jasmine.arrayContaining(['storedObject:testObject:transferred']));
+                expect($window.sessionStorage.setItem.calls.count()).toEqual(1);
+                expect($window.sessionStorage.setItem.calls.first().args).toEqual(
+                  jasmine.arrayContaining(['storedObject:testObject']));
+                expect($rootScope.$broadcast.calls.count()).toBe(1);
+                expect($rootScope.$broadcast).toHaveBeenCalledWith('storedObject:testObject:externalChange');
+                expect($rootScope.$apply.calls.count()).toBe((preventDefault) ? 0 : 1);
+
+                testObject.testProperty = 'testValue2';
+                testObject.$update();
+                expect($window.sessionStorage.setItem.calls.count()).toEqual(2);
+                expect($window.sessionStorage.setItem.calls.mostRecent().args).toEqual(
+                  jasmine.arrayContaining(['storedObject:testObject']));
+              });
+
+            });
+
+          } else {
+
+            it('using ' + storageStrategy, function() {
+              testObject = resetTestObject(initialStore);
+              expect(testObject.testProperty).toBe('testValue');
+              expect($window.localStorage.setItem.calls.count()).toBe(0);
+              expect($window.sessionStorage.setItem.calls.count()).toBe(0);
+              expect($rootScope.$broadcast.calls.count()).toBe(0);
+
+              testObject.testProperty = 'testValue2';
+              testObject.$update();
+              if (storageStrategy === 'sessionStorage') {
+                expect($window.localStorage.setItem.calls.count()).toBe(0);
+                expect($window.sessionStorage.setItem.calls.count()).toBe(1);
+              } else {
+                expect($window.localStorage.setItem.calls.count()).toBe(1);
+                expect($window.sessionStorage.setItem.calls.count()).toBe(0);
+              }
+
+            });
+          }
+
+        });
+      });
+
+      describe('and prioritizes sessionStorage', function() {
+        it('over localStorage', function() {
+          testObject = resetTestObject({
+            sessionStorage: 'sessionStorageRocks',
+            localStorage: 'localStorageRules'
+          });
+          expect(testObject.testProperty).toBe('sessionStorageRocks');
+        });
+        
+        it('and over other tab\'s sessionStorage', function() {
+          testObject = resetTestObject({
+            sessionStorage: 'thisSessionStorageRocks',
+            sessionStorageWithMultiTabSupport: 'theOtherSessionStorageRules'
+          });
+          expect(testObject.testProperty).toBe('thisSessionStorageRocks');
         });
       });
       

@@ -146,7 +146,7 @@
           throw new Error('Object with key \'' + _key + '\' found in invalid state, missing \'$timestamp\' attribute.');
         }
         _storageStrategy = storedObject.$storageStrategy;
-        _storageType = (_storageStrategy === 'localStrategy') ? 'localStorage' : 'sessionStorage';
+        _storageType = (_storageStrategy === 'localStorage') ? 'localStorage' : 'sessionStorage';
         _timestamp = storedObject.$timestamp;
         delete storedObject.$storageStrategy;
         delete storedObject.$timestamp;
