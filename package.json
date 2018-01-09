@@ -1,8 +1,8 @@
 {
   "name": "angular-stored-object",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Local resource support for Angular using HTML5 storage",
-  "main": "stored-object.js",
+  "main": "src/stored-object.js",
   "scripts": {
     "test": "karma start",
     "build": "gulp build",
