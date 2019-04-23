@@ -1,6 +1,6 @@
 {
   "name": "angular-stored-object",
-  "version": "1.0.10",
+  "version": "1.1.0",
   "description": "Local resource support for Angular using HTML5 storage",
   "main": "src/stored-object.js",
   "scripts": {
@@ -26,22 +26,22 @@
   "author": "Yaacov Rydzinski",
   "license": "MIT",
   "devDependencies": {
-    "angular-mocks": "^1.5.1",
-    "del": "^2.2.0",
-    "gulp": "^3.9.1",
-    "gulp-git": "^1.7.0",
-    "gulp-ngdocs": "yaacovCR/gulp-ngdocs",
-    "http-server": "^0.9.0",
-    "jasmine-core": "^2.4.1",
-    "karma": "^0.13.22",
-    "karma-chrome-launcher": "^0.2.2",
-    "karma-coverage": "^0.5.5",
-    "karma-firefox-launcher": "^0.1.7",
-    "karma-jasmine": "^0.3.8",
-    "karma-phantomjs-launcher": "^1.0.0",
-    "phantomjs-prebuilt": "^2.1.5"
+    "angular-mocks": "^1.7.8",
+    "del": "^4.1.0",
+    "gulp": "^4.0.1",
+    "gulp-git": "^2.9.0",
+    "gulp-ngdocs": "^0.3.0",
+    "http-server": "^0.11.1",
+    "jasmine-core": "^3.4.0",
+    "karma": "^4.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
+    "karma-firefox-launcher": "^1.1.0",
+    "karma-jasmine": "^2.0.1",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "phantomjs-prebuilt": "^2.1.16"
   },
   "dependencies": {
-    "angular": "^1.5.1"
+    "angular": "^1.7.8"
   }
 }
